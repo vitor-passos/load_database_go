@@ -9,4 +9,3 @@ func StringToBoolean(value string) bool {
 	}
 	return boolValue
 }
-
