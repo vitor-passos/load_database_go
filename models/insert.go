@@ -9,4 +9,3 @@ func Insert(clientInfos ClientInfos, conn *sql.DB) (id int64, err error) {
 	err = conn.QueryRow(sql, clientInfos.Cpf, clientInfos.Private, clientInfos.Incompleto, clientInfos.Data_da_ultima_compra, clientInfos.Ticket_medio, clientInfos.Ticket_da_ultima_compra, clientInfos.Loja_mais_frequente, clientInfos.Loja_da_ultima_compra).Scan(&id)
 	return
 }
-

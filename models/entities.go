@@ -1,7 +1,6 @@
 package models
 
 type ClientInfos struct {
-	ID                      int64   `json:"id"`
 	Cpf                     string  `json:"cpf"`
 	Private                 bool    `json:"private"`
 	Incompleto              bool    `json:"imcompleto"`
@@ -11,4 +10,3 @@ type ClientInfos struct {
 	Loja_mais_frequente     string  `json:"loja_mais_frequente"`
 	Loja_da_ultima_compra   string  `json:"loja_da_ultima_compra"`
 }
-
