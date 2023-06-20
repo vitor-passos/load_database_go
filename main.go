@@ -4,15 +4,17 @@ import (
 	"bufio"
 	"database/sql"
 	"fmt"
+	"io"
 	"load_database_go/common"
 	"load_database_go/db"
 	"load_database_go/models"
-	"io"
 	"os"
 	"strconv"
 	"strings"
 	"time"
 )
+
+const nWorkers = 2
 
 func main() {
 	startTime := time.Now()
@@ -59,6 +61,10 @@ func createStructClientInfos(infos []string) models.ClientInfos {
 
 func getDataBaseClients(reader *bufio.Reader, conn *sql.DB) {
 	count := 0
+	lineInputChan := make(chan []byte, nWorkers)
+	for i := 0; i < nWorkers; i++ {
+		go worker(lineInputChan, conn)
+	}
 	for {
 		line, _, err := reader.ReadLine()
 		if err == io.EOF {
@@ -66,17 +72,22 @@ func getDataBaseClients(reader *bufio.Reader, conn *sql.DB) {
 			return
 		}
 		if count != 0 {
-			position := getPositionOfWords(line)
-			infos := getInfosLine(line, position)
-			client_infos_struct := createStructClientInfos(infos)
-			_, err := models.Insert(client_infos_struct, conn)
-			if err != nil {
-				fmt.Println(err)
-				return
-			}
-
+			lineInputChan <- line
 		}
 		count++
+	}
+}
+
+func worker(lineInput chan []byte, conn *sql.DB) {
+	for line := range lineInput {
+		position := getPositionOfWords(line)
+		infos := getInfosLine(line, position)
+		client_infos_struct := createStructClientInfos(infos)
+		_, err := models.Insert(client_infos_struct, conn)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 	}
 }
 
