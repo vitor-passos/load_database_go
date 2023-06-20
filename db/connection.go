@@ -17,4 +17,3 @@ func OpenConnection() (*sql.DB, error) {
 	err = conn.Ping()
 	return conn, err
 }
-
