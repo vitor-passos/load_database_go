@@ -14,7 +14,7 @@ import (
 	"time"
 )
 
-const nWorkers = 2
+const nWorkers = 8
 
 func main() {
 	startTime := time.Now()
@@ -66,13 +66,13 @@ func getDataBaseClients(reader *bufio.Reader, conn *sql.DB) {
 		go worker(lineInputChan, conn)
 	}
 	for {
-		line, _, err := reader.ReadLine()
+		line, err := reader.ReadString('\n')
 		if err == io.EOF {
 			fmt.Println(err)
 			return
 		}
 		if count != 0 {
-			lineInputChan <- line
+			lineInputChan <- []byte(line)
 		}
 		count++
 	}
@@ -80,8 +80,7 @@ func getDataBaseClients(reader *bufio.Reader, conn *sql.DB) {
 
 func worker(lineInput chan []byte, conn *sql.DB) {
 	for line := range lineInput {
-		position := getPositionOfWords(line)
-		infos := getInfosLine(line, position)
+		infos := getInfosLine(line)
 		client_infos_struct := createStructClientInfos(infos)
 		_, err := models.Insert(client_infos_struct, conn)
 		if err != nil {
@@ -91,28 +90,15 @@ func worker(lineInput chan []byte, conn *sql.DB) {
 	}
 }
 
-func getPositionOfWords(line []byte) []int {
-	var positions []int
-	for i := 1; i < len(line); i++ {
-		if line[i] != 32 && line[i-1] == 32 {
-			positions = append(positions, i)
+func getInfosLine(line []byte) []string {
+	lineString := string(line)
+	var infosClient []string
+	stringMod := strings.Replace(lineString, ",", ".", -1)
+	splitString := strings.Split(stringMod, " ")
+	for _, info := range splitString {
+		if strings.TrimSpace(info) != "" {
+			infosClient = append(infosClient, info)
 		}
 	}
-	return positions
-}
-
-func getInfosLine(line []byte, positions []int) []string {
-	initial := 0
-	var infos_client []string
-	lineString := string(line)
-	positions = append(positions, len(lineString))
-	fmt.Println(lineString)
-	lineMod := strings.Replace(lineString, ",", ".", -1)
-	for _, element := range positions {
-		word := lineMod[initial:element]
-		fmt.Println(word)
-		infos_client = append(infos_client, strings.Fields(word)[0])
-		initial = element
-	}
-	return infos_client
+	return infosClient
 }
