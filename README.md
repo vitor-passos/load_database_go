@@ -9,12 +9,11 @@
 # Depedencies
 - Docker
 - Git
-- Go
 
 # Database
 ### For this project, the database and the table are create when you run:
 ```console
-docker-compose up
+sudo docker-compose up
 ```
 ### The colunms are based on requested file
 
@@ -37,21 +36,26 @@ Id   | cpf | private | imcompleto | data_da_ultima_compra | ticket_medio | ticke
 ### In main directory of github, example to run:
 
 ```console
-go run main.go base_teste.txt
+sudo docker build -t load_database_go .
 ```
+
+```console
+sudo docker run -v /path_of_file/file.txt:/load_database_go/shared/file.txt --net=host load_database_go
+```
+
 ### This command start the read and process the data in file
 ### If success the output is:
 ```console
-Successufully entered data within 37.135665543s
+Starting load_database_go application...
+Processing File  /load_database_go/shared/file.txt this may take a few seconds
+Successufully entered data within  47.52327111s
 ```
-
 - Time may vary depending on hardware
 - Test environment
 - - VirtualBox 6.1
 - - Ubuntu 22.04.2 LTS
 - - Memory: 4,9 GiB
 - - Processor: Intel® Core™ i5-6200U CPU @ 2.30GHz × 2
-
 
 ### If you want see the data entered in database, follow the next steps:
 # Data visualization
@@ -94,6 +98,21 @@ Successufully entered data within 37.135665543s
 - View / Edit Data > All Rows
 
 ### With this you will be able to visualize the processed data in the database.
+
+### For stop containers
+```console
+sudo docker-compose down
+```
+
+# TESTS
+
+```console
+cd tests
+```
+
+```console
+go test
+```
 
 
 
