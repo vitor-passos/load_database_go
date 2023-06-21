@@ -77,7 +77,7 @@ Successufully entered data within  47.52327111s
 - Host name/address : postgres
 - Port: 5432
 - Maintenance database: postgres
-- Username : postres
+- Username : postgres
 - Password : 1234
 
 ### Click in Save
