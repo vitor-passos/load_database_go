@@ -15,7 +15,8 @@ func main() {
 	if err != nil {
 		return
 	}
-	file, err := os.Open("base_teste.txt")
+	args := os.Args
+	file, err := os.Open(args[1])
 	if err != nil {
 		fmt.Println(err)
 		return
