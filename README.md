@@ -17,7 +17,7 @@ sudo docker-compose up
 ```
 ### The colunms are based on requested file
 
-Id   | cpf | private | imcompleto | data_da_ultima_compra | ticket_medio | ticket_da_ultima_compra | loja_mais_frequente | loja_da_ultima_compra |
+Id   | cpf | private | incompleto | data_da_ultima_compra | ticket_medio | ticket_da_ultima_compra | loja_mais_frequente | loja_da_ultima_compra |
 --------- | ------------- | ------ | ------ | ---------- | -- | -- | ------------- | ------------- |
 1         | Example Cpf   | false  | false  | 2023-01-01 | 0  | 0  | Example Cnpj  | Example Cnpj  |
 
