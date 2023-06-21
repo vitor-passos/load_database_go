@@ -47,7 +47,6 @@ func ReadFileToDatabase(reader *bufio.Reader, conn *sql.DB) {
 	for {
 		line, err := reader.ReadString('\n')
 		if err == io.EOF {
-			fmt.Println(err)
 			return
 		}
 		if count != 0 {

@@ -22,8 +22,9 @@ func main() {
 		return
 	}
 	reader := bufio.NewReader(file)
+	fmt.Println("Processing File ", args[1], "this may take a few seconds")
 	transform.ReadFileToDatabase(reader, conn)
 
 	elapsed := time.Since(startTime)
-	fmt.Println("Database Criada com Sucesso em ", elapsed)
+	fmt.Println("Successufully entered data within ", elapsed)
 }
