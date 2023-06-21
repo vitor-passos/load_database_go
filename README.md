@@ -24,7 +24,7 @@ Id   | cpf | private | imcompleto | data_da_ultima_compra | ticket_medio | ticke
 # Type of Values
 - cpf : string
 - private : boolean
-- imcompleto : boolean
+- incompleto : boolean
 - data_da_ultima_compra: string
 - ticket_medio: float
 - ticket_da_ultima_compra: float
