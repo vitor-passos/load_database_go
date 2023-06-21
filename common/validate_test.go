@@ -1,9 +1,6 @@
-package tests
+package common
 
-import (
-	"load_database_go/common"
-	"testing"
-)
+import "testing"
 
 func TestValidateCpf(t *testing.T) {
 	tests := []struct {
@@ -30,7 +27,7 @@ func TestValidateCpf(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := common.ValidatingCPF(tt.value); got != tt.want {
+			if got := ValidatingCPF(tt.value); got != tt.want {
 				t.Errorf("ValidatingCPF() = %v, want %v", got, tt.want)
 			}
 		})
@@ -62,7 +59,7 @@ func TestValidateCnpj(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := common.ValidatingCNPJ(tt.value); got != tt.want {
+			if got := ValidatingCNPJ(tt.value); got != tt.want {
 				t.Errorf("ValidatingCNPJ() = %v, want %v", got, tt.want)
 			}
 		})

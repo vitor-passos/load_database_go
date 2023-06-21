@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"load_database_go/common"
+	"load_database_go/db"
 	"load_database_go/models"
 	"strings"
 )
@@ -66,7 +67,7 @@ func worker(lineInput chan string, conn *sql.DB) {
 		if !isValid {
 			continue
 		}
-		_, err := models.Insert(clientInfosStruct, conn)
+		_, err := db.Insert(clientInfosStruct, conn)
 		if err != nil {
 			fmt.Println(err)
 			continue

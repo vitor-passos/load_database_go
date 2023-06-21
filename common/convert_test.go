@@ -1,9 +1,6 @@
-package tests
+package common
 
-import (
-	"load_database_go/common"
-	"testing"
-)
+import "testing"
 
 func TestStringToBoolean(t *testing.T) {
 	tests := []struct {
@@ -75,7 +72,7 @@ func TestStringToBoolean(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := common.StringToBoolean(tt.value); got != tt.want {
+			if got := StringToBoolean(tt.value); got != tt.want {
 				t.Errorf("StringToBoolean() = %v, want %v", got, tt.want)
 			}
 		})
@@ -123,7 +120,7 @@ func TestParseToFloatWithDefault(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := common.ParseToFloatWithDefault(tt.value, tt.defaultValue); got != tt.want {
+			if got := ParseToFloatWithDefault(tt.value, tt.defaultValue); got != tt.want {
 				t.Errorf("ParseToFloatWithDefault() = %v, want %v", got, tt.want)
 			}
 		})

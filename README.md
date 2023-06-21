@@ -107,7 +107,7 @@ sudo docker-compose down
 # TESTS
 
 ```console
-cd tests
+cd common
 ```
 
 ```console
